@@ -1,14 +1,14 @@
 
 # Real-Time Polling Application API
 
-[cite_start]This project is a backend service for a real-time polling application, built for the Move37 Ventures Backend Developer Challenge. [cite: 1] [cite_start]It features a RESTful API for managing users and polls, and uses WebSockets for live result updates. [cite: 9]
+This project is a backend service for a real-time polling application, built for the Move37 Ventures Backend Developer Challenge. [cite: 1] [cite_start]It features a RESTful API for managing users and polls, and uses WebSockets for live result updates.
 
 ## Technologies Used
 
-* [cite_start]**Backend**: Node.js, Express.js [cite: 11]
-* [cite_start]**Database**: PostgreSQL [cite: 11]
-* [cite_start]**ORM**: Prisma [cite: 12]
-* [cite_start]**Real-time**: WebSockets [cite: 13]
+* **Backend**: Node.js, Express.js 
+* **Database**: PostgreSQL 
+* **ORM**: Prisma 
+* **Real-time**: WebSockets 
 
 ## Setup and Installation
 
