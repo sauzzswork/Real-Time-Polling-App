@@ -1,7 +1,7 @@
 
 # Real-Time Polling Application API
 
-This project is a backend service for a real-time polling application, built for the Move37 Ventures Backend Developer Challenge. [cite: 1] [cite_start]It features a RESTful API for managing users and polls, and uses WebSockets for live result updates.
+This project is a backend service for a real-time polling application.It features a RESTful API for managing users and polls, and uses WebSockets for live result updates.
 
 ## Technologies Used
 
