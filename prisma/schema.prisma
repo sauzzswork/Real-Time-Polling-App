@@ -1,0 +1,77 @@
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User Model: id, name, email, passwordHash [cite: 22]
+model User {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  passwordHash String
+
+  // One-to-Many: A User can create many Polls [cite: 28]
+  polls        Poll[]
+
+  // Relation to Votes to track which polls a user has voted on
+  votes        Vote[]
+}
+
+// Poll Model: id, question, isPublished, createdAt, updatedAt [cite: 23]
+model Poll {
+  id          String   @id @default(cuid())
+  question    String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relation to the creator (User) [cite: 28]
+  creatorId   String
+  creator     User     @relation(fields: [creatorId], references: [id])
+
+  // One-to-Many: A Poll can have many PollOptions [cite: 29]
+  options     PollOption[]
+
+  // Relation to Votes to track all votes for this poll
+  votes       Vote[]
+}
+
+// PollOption Model: id, text [cite: 25]
+model PollOption {
+  id   String @id @default(cuid())
+  text String
+
+  // Relation to the parent Poll [cite: 29]
+  pollId String
+  poll   Poll   @relation(fields: [pollId], references: [id])
+
+  // Relation to Votes (the join table)
+  votes  Vote[]
+}
+
+// Vote Model: Acts as the join table for the Many-to-Many relationship [cite: 26, 32]
+// A User can vote on many PollOptions, and a PollOption can be voted on by many Users. [cite: 31]
+model Vote {
+  id String @id @default(cuid())
+
+  // Relation to the User who voted
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Relation to the PollOption that was voted on
+  pollOptionId String
+  pollOption   PollOption @relation(fields: [pollOptionId], references: [id])
+  
+  // Relation to the Poll for easier querying and constraints
+  pollId String
+  poll   Poll   @relation(fields: [pollId], references: [id])
+
+  // Ensures a user can only vote once per poll
+  @@unique([userId, pollId])
+}
